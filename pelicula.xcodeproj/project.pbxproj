@@ -3,10 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E63E9D6E25BC311300136675 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E63E9D6D25BC311300136675 /* Alamofire */; };
+		E63E9D7425BC315F00136675 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63E9D7325BC315F00136675 /* APIService.swift */; };
+		E63E9D7E25BC3FE800136675 /* CodableX in Frameworks */ = {isa = PBXBuildFile; productRef = E63E9D7D25BC3FE800136675 /* CodableX */; };
+		E63E9D8325BC409500136675 /* ResultList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63E9D8225BC409500136675 /* ResultList.swift */; };
+		E63E9D8F25BC4A3F00136675 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E63E9D8E25BC4A3F00136675 /* Kingfisher */; };
 		E6BA31CA25BC2F8600CFCDB3 /* peliculaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BA31C925BC2F8600CFCDB3 /* peliculaApp.swift */; };
 		E6BA31CC25BC2F8600CFCDB3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BA31CB25BC2F8600CFCDB3 /* ContentView.swift */; };
 		E6BA31CE25BC2F8800CFCDB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6BA31CD25BC2F8800CFCDB3 /* Assets.xcassets */; };
@@ -33,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E63E9D7325BC315F00136675 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		E63E9D8225BC409500136675 /* ResultList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultList.swift; sourceTree = "<group>"; };
 		E6BA31C625BC2F8600CFCDB3 /* pelicula.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pelicula.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6BA31C925BC2F8600CFCDB3 /* peliculaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peliculaApp.swift; sourceTree = "<group>"; };
 		E6BA31CB25BC2F8600CFCDB3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,6 +59,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E63E9D8F25BC4A3F00136675 /* Kingfisher in Frameworks */,
+				E63E9D7E25BC3FE800136675 /* CodableX in Frameworks */,
+				E63E9D6E25BC311300136675 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +82,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E63E9D7225BC314300136675 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E63E9D7325BC315F00136675 /* APIService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E63E9D7825BC316600136675 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E63E9D8225BC409500136675 /* ResultList.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		E6BA31BD25BC2F8600CFCDB3 = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +121,8 @@
 		E6BA31C825BC2F8600CFCDB3 /* pelicula */ = {
 			isa = PBXGroup;
 			children = (
+				E63E9D7825BC316600136675 /* Models */,
+				E63E9D7225BC314300136675 /* Services */,
 				E6BA31C925BC2F8600CFCDB3 /* peliculaApp.swift */,
 				E6BA31CB25BC2F8600CFCDB3 /* ContentView.swift */,
 				E6BA31CD25BC2F8800CFCDB3 /* Assets.xcassets */,
@@ -146,6 +174,11 @@
 			dependencies = (
 			);
 			name = pelicula;
+			packageProductDependencies = (
+				E63E9D6D25BC311300136675 /* Alamofire */,
+				E63E9D7D25BC3FE800136675 /* CodableX */,
+				E63E9D8E25BC4A3F00136675 /* Kingfisher */,
+			);
 			productName = pelicula;
 			productReference = E6BA31C625BC2F8600CFCDB3 /* pelicula.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +250,11 @@
 				Base,
 			);
 			mainGroup = E6BA31BD25BC2F8600CFCDB3;
+			packageReferences = (
+				E63E9D6C25BC311300136675 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				E63E9D7C25BC3FE800136675 /* XCRemoteSwiftPackageReference "CodableX" */,
+				E63E9D8D25BC4A3F00136675 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = E6BA31C725BC2F8600CFCDB3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -260,6 +298,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6BA31CC25BC2F8600CFCDB3 /* ContentView.swift in Sources */,
+				E63E9D7425BC315F00136675 /* APIService.swift in Sources */,
+				E63E9D8325BC409500136675 /* ResultList.swift in Sources */,
 				E6BA31CA25BC2F8600CFCDB3 /* peliculaApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -574,6 +614,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E63E9D6C25BC311300136675 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.1;
+			};
+		};
+		E63E9D7C25BC3FE800136675 /* XCRemoteSwiftPackageReference "CodableX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dscyrescotti/CodableX.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+		E63E9D8D25BC4A3F00136675 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E63E9D6D25BC311300136675 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E63E9D6C25BC311300136675 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		E63E9D7D25BC3FE800136675 /* CodableX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E63E9D7C25BC3FE800136675 /* XCRemoteSwiftPackageReference "CodableX" */;
+			productName = CodableX;
+		};
+		E63E9D8E25BC4A3F00136675 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E63E9D8D25BC4A3F00136675 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E6BA31BE25BC2F8600CFCDB3 /* Project object */;
 }
