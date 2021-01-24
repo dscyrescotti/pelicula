@@ -12,10 +12,10 @@ struct ResultList: Codable {
     var page: Int
     var totalResults: Int
     var totalPages: Int
-    @ArrayAnyable<Options> var results: [Any]
+    @ArrayAnyable<Options> var _results: [Any]
     
     enum CodingKeys: String, CodingKey {
-        case page, totalResults = "total_results", totalPages = "total_pages", results
+        case page, totalResults = "total_results", totalPages = "total_pages", _results = "results"
     }
     
     struct Options: OptionConfigurable {
@@ -24,13 +24,18 @@ struct ResultList: Codable {
             .init(TVResult.self)
         ]
     }
+    
+    var results: [Result] {
+        _results.compactMap { $0 as? Resultable }.map { $0.result }
+    }
+    
 }
 
-struct MovieResult: AnyCodable {
+struct MovieResult: Resultable {
     @Nullable var posterPath: String?
     @Defaultable var adult: Bool
     @Defaultable var overview: String
-    var releaseDate: String
+    @Nullable var releaseDate: String?
     var genreIDS: [Int]
     var id: Int
     @Nullable var originalTitle: String?
@@ -57,9 +62,13 @@ struct MovieResult: AnyCodable {
         case video
         case voteAverage = "vote_average"
     }
+    
+    var result: Result {
+        .init(id: id, title: title, subTitle: releaseDate, image: posterPath!, type: .movie)
+    }
 }
 
-struct TVResult: AnyCodable {
+struct TVResult: Resultable {
     @Nullable var posterPath: String?
     @Defaultable var popularity: Double
     var id: Int
@@ -88,4 +97,24 @@ struct TVResult: AnyCodable {
         case name
         case originalName = "original_name"
     }
+    
+    var result: Result {
+        .init(id: id, title: name, subTitle: firstAirDate, image: posterPath!, type: .tv)
+    }
+}
+
+enum Results: String {
+    case tv, movie
+}
+
+struct Result: Identifiable {
+    let id: Int
+    let title: String
+    let subTitle: String?
+    let image: String
+    let type: Results
+}
+
+protocol Resultable: AnyCodable {
+    var result: Result { get }
 }
