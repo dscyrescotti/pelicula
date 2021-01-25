@@ -118,3 +118,4 @@ struct Result: Identifiable {
 protocol Resultable: AnyCodable {
     var result: Result { get }
 }
+

@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject var viewModel = HomeViewModel()
     var body: some View {
-        Text("Home View")
+        ScrollView(.vertical, showsIndicators: false) {
+            ForEach(viewModel.rows) { row in
+                PosterRow(title: row.title, results: row.list.results)
+            }
+        }
     }
 }
 
