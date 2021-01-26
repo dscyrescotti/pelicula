@@ -12,7 +12,7 @@ struct HomeView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             ForEach(viewModel.rows) { row in
-                PosterRow(title: row.title, results: row.list.results)
+                PosterRow(title: row.title, results: row.list.results, endpoint: row.endpoint, params: row.parameters)
             }
         }
     }

@@ -23,6 +23,8 @@
 		E6D5594225BD41CD004B3EAB /* PosterImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D5594125BD41CD004B3EAB /* PosterImage.swift */; };
 		E6D5594A25BD4612004B3EAB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D5594925BD4612004B3EAB /* HomeView.swift */; };
 		E6D5594F25BD4679004B3EAB /* PosterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D5594E25BD4679004B3EAB /* PosterRow.swift */; };
+		E6D998F225BFBCA400EF60C3 /* PosterGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D998F125BFBCA400EF60C3 /* PosterGridView.swift */; };
+		E6D998FA25BFC67900EF60C3 /* PosterGridViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D998F925BFC67900EF60C3 /* PosterGridViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,8 @@
 		E6D5594125BD41CD004B3EAB /* PosterImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterImage.swift; sourceTree = "<group>"; };
 		E6D5594925BD4612004B3EAB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E6D5594E25BD4679004B3EAB /* PosterRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterRow.swift; sourceTree = "<group>"; };
+		E6D998F125BFBCA400EF60C3 /* PosterGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterGridView.swift; sourceTree = "<group>"; };
+		E6D998F925BFC67900EF60C3 /* PosterGridViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterGridViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				E667671125BEF6FF004D8BCB /* HomeViewModel.swift */,
+				E6D998F925BFC67900EF60C3 /* PosterGridViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -182,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				E6D5594925BD4612004B3EAB /* HomeView.swift */,
+				E6D998F125BFBCA400EF60C3 /* PosterGridView.swift */,
 				E6D5593825BD3572004B3EAB /* HelperViews */,
 			);
 			path = Views;
@@ -337,6 +343,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6D5593A25BD3654004B3EAB /* Image.swift in Sources */,
+				E6D998FA25BFC67900EF60C3 /* PosterGridViewModel.swift in Sources */,
+				E6D998F225BFBCA400EF60C3 /* PosterGridView.swift in Sources */,
 				E667671225BEF6FF004D8BCB /* HomeViewModel.swift in Sources */,
 				E6D5594A25BD4612004B3EAB /* HomeView.swift in Sources */,
 				E6D5594225BD41CD004B3EAB /* PosterImage.swift in Sources */,

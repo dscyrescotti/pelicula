@@ -9,11 +9,11 @@ import SwiftUI
 
 struct PosterImage: View {
     let result: Result
-    let width: CGFloat = 100
-    let height: CGFloat = 160
+    var width: CGFloat = 100
+    var height: CGFloat = 160
     var body: some View {
         VStack(alignment: .leading) {
-            Image(url: "https://image.tmdb.org/t/p/w500/" + result.image, width: width, height: height, shadow: 5)
+            Image(url: "https://image.tmdb.org/t/p/w500/" + (result.image ?? ""), width: width, height: height, shadow: 5)
             VStack(alignment: .leading) {
                 Text(result.title)
                     .font(.headline)

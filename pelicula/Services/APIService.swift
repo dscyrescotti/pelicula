@@ -13,7 +13,9 @@ final class APIService {
     private static let BASE_URL = "https://api.themoviedb.org/3/"
     
     static func get<T: Codable>(endpoint: String, parameters: [String: Any] = [:], callback: @escaping (T) -> Void) {
-        AF.request(BASE_URL + endpoint, method: .get, parameters: ["api_key": API_KEY]).responseDecodable(of: T.self, queue: .main) { result in
+        var params = parameters
+        params["api_key"] = API_KEY
+        AF.request(BASE_URL + endpoint, method: .get, parameters: params).responseDecodable(of: T.self, queue: .main) { result in
             if let error = result.error {
                 print(error.localizedDescription)
                 return
@@ -26,8 +28,4 @@ final class APIService {
         }
     }
     
-}
-
-struct TestStruct: Codable {
-    var page: Int
 }
