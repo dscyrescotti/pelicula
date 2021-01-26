@@ -26,13 +26,24 @@ struct PosterRow: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(alignment: .top, spacing: 13) {
                     ForEach(results) { result in
-                        PosterImage(result: result)
+                        NavigationLink(destination: destination(result: result)) {
+                            PosterImage(result: result)
+                        }
                     }
                 }
                 .padding(.horizontal, 13)
                 .padding(.top, 12)
             }
         }.padding(.vertical, 5)
+    }
+    
+    @ViewBuilder
+    func destination(result: Result) -> some View {
+        if result.type == .movie || result.type == .tv {
+            MediaDetailsView()
+        } else {
+            Text("Oop!")
+        }
     }
 }
 
