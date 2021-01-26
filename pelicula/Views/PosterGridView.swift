@@ -15,16 +15,30 @@ struct PosterGridView: View {
     var body: some View {
         GeometryReader { reader in
             ScrollView(.vertical, showsIndicators: true) {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 5), count: 3), spacing: 10) {
-                    ForEach(viewModel.results) { result in
-                        PosterImage(result: result, width: reader.size.width / 3.5)
+                Section(footer: footer()) {
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 5), count: 3), spacing: 10) {
+                        ForEach(viewModel.results) { result in
+                            PosterImage(result: result, width: reader.size.width / 3.5)
+                                .onAppear {
+                                    viewModel.next(result: result)
+                                }
+                        }
                     }
                 }
                 .padding(.horizontal, 5)
-                .padding(.vertical, 15)
+                .padding(.vertical, 10)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    @ViewBuilder
+    func footer() -> some View {
+        if viewModel.isEnd {
+            Text("End")
+        } else {
+            ProgressView()
+        }
     }
 }
 

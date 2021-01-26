@@ -107,12 +107,16 @@ enum Results: String {
     case tv, movie
 }
 
-struct Result: Identifiable {
+struct Result: Identifiable, Hashable {
     let id: Int
     let title: String
     let subTitle: String?
     let image: String?
     let type: Results
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+    }
 }
 
 protocol Resultable: AnyCodable {
