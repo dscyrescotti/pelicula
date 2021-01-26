@@ -40,7 +40,8 @@ struct PosterRow: View {
     @ViewBuilder
     func destination(result: Result) -> some View {
         if result.type == .movie || result.type == .tv {
-            MediaDetailsView()
+            MediaDetailsView(id: result.id, type: result.type)
+                .navigationTitle(result.title)
         } else {
             Text("Oop!")
         }

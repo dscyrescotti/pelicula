@@ -16,8 +16,17 @@ class MediaDetailsViewModel: ObservableObject {
         ]
     }
     
+    let id: Int
+    let type: Results
+    
+    init(id: Int, type: Results) {
+        self.id = id
+        self.type = type
+        self.loadDetails()
+    }
+    
     func loadDetails() {
-        APIService.get(endpoint: "movie/475557", parameters: [:]) { (anyable: OptionalAnyable<Options>) in
+        APIService.get(endpoint: "\(type)/\(id)", parameters: [:]) { (anyable: OptionalAnyable<Options>) in
             if let details = anyable.wrappedValue {
                 print(details)
             }
