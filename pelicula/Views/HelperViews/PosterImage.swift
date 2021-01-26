@@ -18,11 +18,9 @@ struct PosterImage: View {
                 Text(result.title)
                     .font(.headline)
                     .lineLimit(2)
-                if let subTitle = result.subTitle {
-                    Text(subTitle)
-                        .font(.subheadline)
-                        .lineLimit(1)
-                }
+                Text(result.subTitle)
+                    .font(.subheadline)
+                    .lineLimit(1)
             }
             .frame(minHeight: height * 0.4, alignment: .top)
         }

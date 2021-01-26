@@ -8,7 +8,23 @@
 import Foundation
 import CodableX
 
-struct MovieDetails: AnyCodable {
+protocol MediaDetails: AnyCodable {
+    var details: DetailsWrapper { get }
+}
+
+struct DetailsWrapper {
+    let id: Int
+    let title: String
+    let genres: [Genre]
+    let backdrop: String?
+    let poster: String?
+    let overview: String
+    let date: String
+    let tagline: String?
+    let status: String?
+}
+
+struct MovieDetails: MediaDetails {
     @Defaultable var adult: Bool
     @Nullable var backdropPath: String?
     @Nullable var belongsToCollection: String?
@@ -54,9 +70,13 @@ struct MovieDetails: AnyCodable {
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
+    
+    var details: DetailsWrapper {
+        .init(id: id, title: title, genres: genres, backdrop: backdropPath, poster: posterPath, overview: overview, date: releaseDate.formatDate, tagline: tagline, status: status)
+    }
 }
 
-struct TVDetails: AnyCodable {
+struct TVDetails: MediaDetails {
     @Nullable var backdropPath: String?
     var createdBy: [CreatedBy]
     var episodeRunTime: [Int]
@@ -76,7 +96,7 @@ struct TVDetails: AnyCodable {
     var originCountry: [String]
     @Nullable var originalLanguage: String?
     @Nullable var originalName: String?
-    @Nullable var overview: String?
+    @Defaultable var overview: String
     @Defaultable var popularity: Double
     @Nullable var posterPath: String?
     var productionCompanies: [Network]
@@ -118,6 +138,9 @@ struct TVDetails: AnyCodable {
         case voteCount = "vote_count"
     }
     
+    var details: DetailsWrapper {
+        .init(id: id, title: name, genres: genres, backdrop: backdropPath, poster: posterPath, overview: overview, date: firstAirDate.formatDate, tagline: tagline, status: status)
+    }
     
 }
 

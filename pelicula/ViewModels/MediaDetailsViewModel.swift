@@ -19,6 +19,8 @@ class MediaDetailsViewModel: ObservableObject {
     let id: Int
     let type: Results
     
+    @Published var media: MediaDetails? = nil
+    
     init(id: Int, type: Results) {
         self.id = id
         self.type = type
@@ -26,9 +28,9 @@ class MediaDetailsViewModel: ObservableObject {
     }
     
     func loadDetails() {
-        APIService.get(endpoint: "\(type)/\(id)", parameters: [:]) { (anyable: OptionalAnyable<Options>) in
-            if let details = anyable.wrappedValue {
-                print(details)
+        APIService.get(endpoint: "\(type)/\(id)", parameters: [:]) { [weak self] (anyable: OptionalAnyable<Options>) in
+            if let media = anyable.wrappedValue as? MediaDetails {
+                self?.media = media
             }
         }
     }

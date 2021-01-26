@@ -64,7 +64,7 @@ struct MovieResult: Resultable {
     }
     
     var result: Result {
-        .init(id: id, title: title, subTitle: releaseDate, image: posterPath, type: .movie)
+        .init(id: id, title: title, subTitle: releaseDate.formatDate, image: posterPath, type: .movie)
     }
 }
 
@@ -99,7 +99,7 @@ struct TVResult: Resultable {
     }
     
     var result: Result {
-        .init(id: id, title: name, subTitle: firstAirDate, image: posterPath, type: .tv)
+        .init(id: id, title: name, subTitle: firstAirDate.formatDate, image: posterPath, type: .tv)
     }
 }
 
@@ -110,7 +110,7 @@ enum Results: String {
 struct Result: Identifiable, Hashable {
     let id: Int
     let title: String
-    let subTitle: String?
+    let subTitle: String
     let image: String?
     let type: Results
     
