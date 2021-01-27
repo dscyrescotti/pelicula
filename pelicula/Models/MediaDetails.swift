@@ -20,8 +20,11 @@ struct DetailsWrapper {
     let poster: String?
     let overview: String
     let date: String
-    let tagline: String?
+    let tagline: String
     let status: String?
+    let recommendations: ResultList
+    let similar: ResultList
+    let credits: MediaCredit
 }
 
 struct MovieDetails: MediaDetails {
@@ -45,11 +48,14 @@ struct MovieDetails: MediaDetails {
     @Defaultable var runtime: Int
     var spokenLanguages: [SpokenLanguage]
     @Nullable var status: String?
-    @Nullable var tagline: String?
+    @Defaultable var tagline: String
     var title: String
     @Defaultable var video: Bool
     @Defaultable var voteAverage: Double
     @Defaultable var voteCount: Int
+    var recommendations: ResultList
+    var similar: ResultList
+    var credits: MediaCredit
 
     enum CodingKeys: String, CodingKey {
         case adult
@@ -69,10 +75,13 @@ struct MovieDetails: MediaDetails {
         case status, tagline, title, video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+        case recommendations
+        case similar
+        case credits
     }
     
     var details: DetailsWrapper {
-        .init(id: id, title: title, genres: genres, backdrop: backdropPath, poster: posterPath, overview: overview, date: releaseDate.formatDate, tagline: tagline, status: status)
+        .init(id: id, title: title, genres: genres, backdrop: backdropPath, poster: posterPath, overview: overview, date: releaseDate.formatDate, tagline: tagline, status: status, recommendations: recommendations, similar: similar, credits: credits)
     }
 }
 
@@ -104,10 +113,13 @@ struct TVDetails: MediaDetails {
     var seasons: [Season]
     var spokenLanguages: [SpokenLanguage]
     @Nullable var status: String?
-    @Nullable var tagline: String?
+    @Defaultable var tagline: String
     @Nullable var type: String?
     @Defaultable var voteAverage: Double
     @Defaultable var voteCount: Int
+    var recommendations: ResultList
+    var similar: ResultList
+    var credits: MediaCredit
 
     enum CodingKeys: String, CodingKey {
         case backdropPath = "backdrop_path"
@@ -136,10 +148,13 @@ struct TVDetails: MediaDetails {
         case status, tagline, type
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+        case recommendations
+        case similar
+        case credits
     }
     
     var details: DetailsWrapper {
-        .init(id: id, title: name, genres: genres, backdrop: backdropPath, poster: posterPath, overview: overview, date: firstAirDate.formatDate, tagline: tagline, status: status)
+        .init(id: id, title: name, genres: genres, backdrop: backdropPath, poster: posterPath, overview: overview, date: firstAirDate.formatDate, tagline: tagline, status: status, recommendations: recommendations, similar: similar, credits: credits)
     }
     
 }
@@ -251,3 +266,73 @@ struct SpokenLanguage: Codable {
         case name
     }
 }
+
+struct MediaCredit: Codable {
+    var cast: [Cast]
+    
+    var results: [Result] {
+        cast.sorted(by: { $0.order < $1.order })[0..<min(15, cast.count)].map { $0.result }
+    }
+}
+
+struct Cast: Resultable {
+    @Defaultable var adult: Bool
+    var gender: Int
+    var id: Int
+    @Nullable var knownForDepartment: String?
+    var name: String
+    @Nullable var originalName: String?
+    @Defaultable var popularity: Double
+    @Nullable var profilePath: String?
+    @Nullable var castID: Int?
+    @Nullable var character: String?
+    @Nullable var creditID: String?
+    var order: Int
+
+    enum CodingKeys: String, CodingKey {
+        case adult, gender, id
+        case knownForDepartment = "known_for_department"
+        case name
+        case originalName = "original_name"
+        case popularity
+        case profilePath = "profile_path"
+        case castID = "cast_id"
+        case character
+        case creditID = "credit_id"
+        case order
+    }
+    
+    var result: Result {
+        .init(id: id, title: name, subTitle: character, image: profilePath, type: .crew)
+    }
+}
+
+//struct Crew: Codable {
+//    var adult: Bool
+//    var gender: Int
+//    var id: Int
+//    var knownForDepartment: String
+//    var name: String
+//    var originalName: String
+//    var popularity: Double
+//    @Nullable var profilePath: String?
+//    @Nullable var castID: Int?
+//    @Nullable var character: String?
+//    var creditID: String
+//    @Nullable var order: Int?
+//    var department: String?
+//    var job: String?
+//
+//    enum CodingKeys: String, CodingKey {
+//        case adult, gender, id
+//        case knownForDepartment = "known_for_department"
+//        case name
+//        case originalName = "original_name"
+//        case popularity
+//        case profilePath = "profile_path"
+//        case castID = "cast_id"
+//        case character
+//        case creditID = "credit_id"
+//        case order, department, job
+//    }
+//}

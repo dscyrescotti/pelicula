@@ -9,23 +9,25 @@ import SwiftUI
 
 struct PosterImage: View {
     let result: Result
-    var width: CGFloat = 100
+    var width: CGFloat = 110
     var height: CGFloat = 160
+    var alpha: CGFloat = 0.45
     var body: some View {
         VStack(alignment: .leading) {
             Image(url: "https://image.tmdb.org/t/p/w500/" + (result.image ?? ""), width: width, height: height, shadow: 5)
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 3) {
                 Text(result.title)
                     .font(.headline)
                     .lineLimit(2)
-                Text(result.subTitle)
-                    .font(.subheadline)
-                    .lineLimit(1)
+                if let subTitle = result.subTitle {
+                    Text(subTitle)
+                        .font(.subheadline)
+                        .lineLimit(1)
+                }
             }
-            .frame(minHeight: height * 0.4, alignment: .top)
+            .frame(minHeight: height * alpha, alignment: .top)
         }
         .frame(width: width)
-        
     }
 }
 

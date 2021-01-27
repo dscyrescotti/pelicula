@@ -104,13 +104,13 @@ struct TVResult: Resultable {
 }
 
 enum Results: String {
-    case tv, movie
+    case tv, movie, crew
 }
 
 struct Result: Identifiable, Hashable {
     let id: Int
     let title: String
-    let subTitle: String
+    let subTitle: String?
     let image: String?
     let type: Results
     

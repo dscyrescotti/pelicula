@@ -28,7 +28,15 @@ class MediaDetailsViewModel: ObservableObject {
     }
     
     func loadDetails() {
-        APIService.get(endpoint: "\(type)/\(id)", parameters: [:]) { [weak self] (anyable: OptionalAnyable<Options>) in
+        var parameters: [String: Any]
+        if type == .movie {
+            parameters = ["append_to_response": "similar,recommendations,credits"]
+        } else if type == .tv {
+            parameters = ["append_to_response": "similar,recommendations,credits"]
+        } else {
+            parameters = [:]
+        }
+        APIService.get(endpoint: "\(type)/\(id)", parameters: parameters) { [weak self] (anyable: OptionalAnyable<Options>) in
             if let media = anyable.wrappedValue as? MediaDetails {
                 self?.media = media
             }

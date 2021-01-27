@@ -13,6 +13,7 @@ struct HomeView: View {
         ScrollView(.vertical, showsIndicators: false) {
             ForEach(viewModel.rows) { row in
                 PosterRow(title: row.title, results: row.list.results, endpoint: row.endpoint, params: row.parameters)
+                    .padding(.vertical, 5)
             }
         }
     }
