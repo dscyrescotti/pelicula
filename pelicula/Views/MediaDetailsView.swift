@@ -43,7 +43,6 @@ struct MediaDetailsView: View {
         PosterRow(title: title, results: results, endpoint: endpoint, params: [:], type: rowType)
     }
     
-    @ViewBuilder
     func backdrop(_ fname: String, width: CGFloat) -> some View {
         KFImage(URL(string: "https://image.tmdb.org/t/p/w500/" + fname))
             .placeholder {

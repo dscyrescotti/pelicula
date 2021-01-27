@@ -18,13 +18,11 @@ struct PosterGridView: View {
                 Section(footer: footer()) {
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 5), count: 3), spacing: 10) {
                         ForEach(viewModel.results) { result in
-                            NavigationLink(destination: destination(result: result)) {
-                                card(result: result, width: reader.size.width)
-                                    .onAppear {
-                                        viewModel.next(result: result)
-                                    }
-                            }
-                            .buttonStyle(PlainButtonStyle())
+                            card(result: result, width: reader.size.width)
+                                .onAppear {
+                                    viewModel.next(result: result)
+                                }
+                                .toDetailsView(result: result)
                         }
                     }
                 }
@@ -50,16 +48,6 @@ struct PosterGridView: View {
             PosterImage(result: result, width: width / 3.5, height: 110, alpha: 0.65)
         } else {
             PosterImage(result: result, width: width / 3.5)
-        }
-    }
-    
-    @ViewBuilder
-    func destination(result: Result) -> some View {
-        if result.type == .movie || result.type == .tv {
-            MediaDetailsView(id: result.id, type: result.type)
-                .navigationTitle(result.title)
-        } else {
-            Text("Oop!")
         }
     }
 }

@@ -104,7 +104,7 @@ struct TVResult: Resultable {
 }
 
 enum Results: String {
-    case tv, movie, crew
+    case tv, movie, person
 }
 
 struct Result: Identifiable, Hashable {

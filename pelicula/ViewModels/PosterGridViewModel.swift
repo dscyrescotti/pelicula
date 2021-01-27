@@ -26,7 +26,6 @@ class PosterGridViewModel: ObservableObject {
     
     func fetchResults() {
         if !isFetching {
-//            print("[Grid]: Fetching data for page \(page)")
             isFetching.toggle()
             if type == .media {
                 params["page"] = page
@@ -35,7 +34,7 @@ class PosterGridViewModel: ObservableObject {
                     self?.results.append(contentsOf: list.results)
                     self?.page += 1
                 }
-            } else {
+            } else if type == .cast {
                 APIService.get(endpoint: endpoint, parameters: params) { [weak self] (credits: MediaCredit) in
                     self?.isEnd = true
                     self?.results = credits.results

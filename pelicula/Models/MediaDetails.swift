@@ -303,7 +303,7 @@ struct Cast: Resultable {
     }
     
     var result: Result {
-        .init(id: id, title: name, subTitle: character, image: profilePath, type: .crew)
+        .init(id: id, title: name, subTitle: character, image: profilePath, type: .person)
     }
 }
 
