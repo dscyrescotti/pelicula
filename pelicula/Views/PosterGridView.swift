@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct PosterGridView: View {
-    @StateObject var viewModel: PosterGridViewModel
-    init(endpoint: String, params: [String: Any], type: RowType) {
+    @StateObject private var viewModel: PosterGridViewModel
+    let displayMode: Bool
+    init(endpoint: String, params: [String: Any], type: RowType, include displayMode: Bool = true) {
         self._viewModel = StateObject<PosterGridViewModel>(wrappedValue: .init(endpoint: endpoint, params: params, type: type))
+        self.displayMode = displayMode
     }
     var body: some View {
+        if displayMode {
+            gridView.navigationBarTitleDisplayMode(.inline)
+        } else {
+            gridView
+        }
+    }
+    
+    var gridView: some View {
         GeometryReader { reader in
             ScrollView(.vertical, showsIndicators: true) {
                 Section(footer: footer()) {
@@ -30,7 +40,6 @@ struct PosterGridView: View {
                 .padding(.vertical, 10)
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
     }
     
     @ViewBuilder

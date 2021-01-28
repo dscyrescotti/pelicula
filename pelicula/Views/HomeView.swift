@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject var viewModel = HomeViewModel()
+    @StateObject private var viewModel = HomeViewModel()
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             ForEach(viewModel.rows) { row in

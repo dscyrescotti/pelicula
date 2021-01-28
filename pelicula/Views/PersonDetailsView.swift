@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct PersonDetailsView: View {
-    @StateObject var viewModel: PersonDetailsViewModel
+    @StateObject private var viewModel: PersonDetailsViewModel
     init(id: Int, type: Results) {
         self._viewModel = StateObject(wrappedValue: PersonDetailsViewModel(id: id, type: type))
     }
@@ -18,7 +18,7 @@ struct PersonDetailsView: View {
             if let details = viewModel.details {
                 GeometryReader { reader in
                     ScrollView {
-                        VStack(alignment: .leading, spacing: 15) {
+                        LazyVStack(alignment: .leading, spacing: 15) {
                             avatar(details.profilePath ?? "")
                             Text(details.name)
                                 .font(.title)

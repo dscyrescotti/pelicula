@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct ContentView: View {
     var body: some View {
         NavigationView {
             HomeView()
+                .toSearchView()
                 .navigationTitle("pelicula")
         }
     }
