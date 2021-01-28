@@ -10,7 +10,7 @@ import Foundation
 class HomeViewModel: ObservableObject {
     @Published var rows = [Row]()
     
-    private let endpoints: [Endpoint] = [.init(name: "movie/popular", title: "Popular Movies"), .init(name: "movie/top_rated", title: "Top Rated Movies"), .init(name: "movie/upcoming", title: "Upcoming"), .init(name: "movie/now_playing", title: "Now Playing"), .init(name: "tv/airing_today", title: "Airing Today"), .init(name: "tv/on_the_air", title: "On the Air"), .init(name: "tv/popular", title: "Popular TVs"), .init(name: "tv/top_rated", title: "Top Rated TVs")].shuffled()
+    private let endpoints: [Endpoint] = [.init(name: "movie/popular", title: "Popular Movies"), .init(name: "movie/top_rated", title: "Top Rated Movies"), .init(name: "movie/upcoming", title: "Upcoming"), .init(name: "movie/now_playing", title: "Now Playing"), .init(name: "tv/airing_today", title: "Airing Today"), .init(name: "tv/on_the_air", title: "On the Air"), .init(name: "tv/popular", title: "Popular TVs"), .init(name: "tv/top_rated", title: "Top Rated TVs"), .init(name: "trending/all/week", title: "Trending")].shuffled()
     
     func fetchLists() {
         for endpoint in endpoints {

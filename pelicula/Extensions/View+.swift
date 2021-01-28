@@ -28,7 +28,10 @@ extension View {
         }
     }
     
-    func lazy() -> some View {
-        LazyView(self)
+    func toSearchView() -> some View {
+        let trailing = NavigationLink(destination: LazyView(SearchView())) {
+            SwiftUI.Image(systemName: "magnifyingglass")
+        }.buttonStyle(PlainButtonStyle())
+        return self.navigationBarItems(trailing: trailing)
     }
 }
