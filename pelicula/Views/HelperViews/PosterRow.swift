@@ -40,7 +40,7 @@ struct PosterRow: View {
     }
     
     @ViewBuilder
-    func card(result: Result) -> some View {
+    private func card(result: Result) -> some View {
         if result.type == .person {
             PosterImage(result: result, height: 110, alpha: 0.65)
         } else {
@@ -48,4 +48,3 @@ struct PosterRow: View {
         }
     }
 }
-

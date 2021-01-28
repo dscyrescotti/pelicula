@@ -18,11 +18,19 @@ struct PersonDetailsView: View {
             if let details = viewModel.details {
                 GeometryReader { reader in
                     ScrollView {
-                        avatar(details.profilePath ?? "")
-                        Text(details.name)
-                            .font(.title)
-                            .bold()
-                            .multilineTextAlignment(.center)
+                        VStack(alignment: .leading, spacing: 15) {
+                            avatar(details.profilePath ?? "")
+                            Text(details.name)
+                                .font(.title)
+                                .bold()
+                                .multilineTextAlignment(.center)
+                                .frame(width: reader.size.width)
+                            Group {
+                                birthdate(details)
+                                biography(details)
+                            }.padding(.horizontal)
+                            posterRow(results: details.combinedCredits.cast, title: "Movies and TVs", endpoint: "\(viewModel.type)/\(viewModel.id)/combined_credits")
+                        }
                     }
                 }
             } else {
@@ -42,6 +50,34 @@ struct PersonDetailsView: View {
                 .offset(y: -100)
                 .padding(.bottom, -100)
         }
+    }
+    
+    @ViewBuilder
+    func biography(_ details: PersonDetails) -> some View {
+        if details.biography.isNotEmpty {
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Biography")
+                    .font(.title3)
+                    .bold()
+                Text(details.biography)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+    }
+    
+    
+    @ViewBuilder
+    func birthdate(_ details: PersonDetails) -> some View {
+        if details.birthday != nil {
+            Text("Born on \(details.birthday.formatDate)")
+                .font(.title3)
+                .fontWeight(.regular)
+        }
+    }
+    
+    @ViewBuilder
+    func posterRow(results: [Result], title: String, endpoint: String, rowType: RowType = .credit) -> some View {
+        PosterRow(title: title, results: results, endpoint: endpoint, params: [:], type: rowType)
     }
 }
 

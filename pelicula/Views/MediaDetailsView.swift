@@ -46,10 +46,9 @@ struct MediaDetailsView: View {
     func backdrop(_ fname: String, width: CGFloat) -> some View {
         KFImage(URL(string: "https://image.tmdb.org/t/p/w500/" + fname))
             .placeholder {
-                ZStack {
-                    Color.red
-                    ProgressView()
-                }
+                SwiftUI.Image("placeholder-backdrop")
+                    .resizable()
+                    .scaledToFill()
             }
             .cacheOriginalImage()
             .resizable()

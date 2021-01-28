@@ -21,9 +21,8 @@ class PersonDetailsViewModel: ObservableObject {
     
     func loadDetails() {
 //        var parameters: [String: Any]
-        APIService.get(endpoint: "\(type)/\(id)", parameters: [:]) { [weak self] (details: PersonDetails) in
+        APIService.get(endpoint: "\(type)/\(id)", parameters: ["append_to_response": "combined_credits"]) { [weak self] (details: PersonDetails) in
             self?.details = details
-            print(details)
         }
     }
 }

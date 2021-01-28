@@ -39,6 +39,11 @@ class PosterGridViewModel: ObservableObject {
                     self?.isEnd = true
                     self?.results = credits.results
                 }
+            } else if type == .credit {
+                APIService.get(endpoint: endpoint, parameters: params) { [weak self] (combined: CombinedCredit) in
+                    self?.isEnd = true
+                    self?.results = combined.cast
+                }
             }
             isFetching.toggle()
         }
@@ -52,5 +57,5 @@ class PosterGridViewModel: ObservableObject {
 }
 
 enum RowType {
-    case media, cast
+    case media, cast, credit
 }
