@@ -32,13 +32,12 @@ struct SearchView: View {
                         }
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                    
+                    .edgesIgnoringSafeArea(.bottom)
                 }
             }
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Explore")
-        .edgesIgnoringSafeArea(.bottom)
     }
     private let searchs: [Search] = [.init(id: 1, name: "Movie", endpoint: "search/movie", type: .media), .init(id: 2, name: "TV", endpoint: "search/tv", type: .media)]
     private struct Search: Identifiable {
