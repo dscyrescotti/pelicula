@@ -29,9 +29,10 @@ final class APIService {
     }
     
     static func post<T: Codable, Body: Encodable>(endpoint: String, body: Body?, callback: @escaping (T) -> Void) {
-        let url = "\(BASE_URL)\(endpoint)?api_key=\(API_KEY)"
-        print(url)
-        AF.request(url, method: .post, parameters: body, encoder: JSONParameterEncoder.default, headers: ["Content-Type":"application/json"]).validate().responseDecodable(of: T.self) { result in
+        AF.request("\(BASE_URL)\(endpoint)?api_key=\(API_KEY)", method: .post, parameters: body, encoder: JSONParameterEncoder.default, headers: ["Content-Type":"application/json"]).validate().responseDecodable(of: T.self) { result in
+            if let statusCode = result.response?.statusCode, statusCode >= 400 && statusCode < 500 {
+                print(statusCode)
+            }
             if let error = result.error {
                 print(error.localizedDescription)
                 return

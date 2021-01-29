@@ -20,21 +20,18 @@ final class UserService: ObservableObject {
         return true
     }
     
-    var sessionId: String? {
-        guard let value = try? storage.get("session_id") else {
-            return nil
-        }
-        return value
-    }
+    @Published var sessionId: String? = nil
     
-    // First time and session id expires
-    private func newToken(whenDone: @escaping (Token) -> Void) {
-        APIService.get(endpoint: "authentication/token/new") { (token: Token) in
-            if token.success {
-                whenDone(token)
-            } else {
-                print("[Error]: Failed to create a new token.")
-            }
+//    var sessionId: String? {
+//        guard let value = try? storage.get("session_id") else {
+//            return nil
+//        }
+//        return value
+//    }
+    
+    private func loadSessionId() {
+        if let value = try? storage.get("session_id") {
+            self.sessionId = value
         }
     }
     
@@ -52,15 +49,12 @@ final class UserService: ObservableObject {
         }
     }
     
-    func logout() {
-        guard let id = sessionId else {
-            return
-        }
-        APIService.delete(endpoint: "authentication/session", body: SessionCrediential(sessionId: id)) { (success: Success) in
-            if success.success {
-                print("Successfully deleted session.")
+    private func newToken(whenDone: @escaping (Token) -> Void) {
+        APIService.get(endpoint: "authentication/token/new") { (token: Token) in
+            if token.success {
+                whenDone(token)
             } else {
-                print("[Error]: Failed to destroy the session.")
+                print("[Error]: Failed to create a new token.")
             }
         }
     }
@@ -79,14 +73,24 @@ final class UserService: ObservableObject {
         }
     }
     
+    func logout() {
+        guard let id = sessionId else {
+            return
+        }
+        APIService.delete(endpoint: "authentication/session", body: SessionCrediential(sessionId: id)) { (success: Success) in
+            if success.success {
+                print("Successfully deleted session.")
+                try? self.storage.remove("session_id")
+            } else {
+                print("[Error]: Failed to destroy the session.")
+            }
+        }
+    }
+    
     static var sharedInstance: UserService = .init()
     
     private init() {
-        if !hasSessionId {
-            login(username: "", password: "")
-        } else {
-            print(sessionId!)
-        }
+        loadSessionId()
     }
     
     private struct UserCrediential: Codable {
