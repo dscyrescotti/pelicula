@@ -108,6 +108,7 @@ enum Results: String {
 }
 
 struct Result: Identifiable, Hashable {
+    let uuid = UUID()
     let id: Int
     let title: String
     let subTitle: String?
@@ -115,7 +116,7 @@ struct Result: Identifiable, Hashable {
     let type: Results
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(self.id)
+        hasher.combine(self.uuid)
     }
 }
 
