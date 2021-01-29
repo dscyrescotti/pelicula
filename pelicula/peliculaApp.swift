@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct peliculaApp: App {
+    @ObservedObject var userService: UserService = .sharedInstance
     var body: some Scene {
         WindowGroup {
             ContentView()

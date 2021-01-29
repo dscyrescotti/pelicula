@@ -28,4 +28,33 @@ final class APIService {
         }
     }
     
+    static func post<T: Codable, Body: Encodable>(endpoint: String, body: Body?, callback: @escaping (T) -> Void) {
+        let url = "\(BASE_URL)\(endpoint)?api_key=\(API_KEY)"
+        print(url)
+        AF.request(url, method: .post, parameters: body, encoder: JSONParameterEncoder.default, headers: ["Content-Type":"application/json"]).validate().responseDecodable(of: T.self) { result in
+            if let error = result.error {
+                print(error.localizedDescription)
+                return
+            }
+            if let value = result.value {
+                callback(value)
+            } else {
+                print("[Error]: Missing value.")
+            }
+        }
+    }
+    
+    static func delete<T: Codable, Body: Encodable>(endpoint: String, body: Body?, callback: @escaping (T) -> Void) {
+        AF.request("\(BASE_URL)\(endpoint)?api_key=\(API_KEY)", method: .delete, parameters: body, encoder: JSONParameterEncoder.default, headers: ["Content-Type":"application/json"]).responseDecodable(of: T.self) { result in
+            if let error = result.error {
+                print(error.localizedDescription)
+                return
+            }
+            if let value = result.value {
+                callback(value)
+            } else {
+                print("[Error]: Missing value.")
+            }
+        }
+    }
 }
