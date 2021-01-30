@@ -28,15 +28,13 @@ final class APIService {
         }
     }
     
-    static func post<T: Codable, Body: Encodable>(endpoint: String, body: Body?, callback: @escaping (T) -> Void) {
+    static func post<T: Codable, Body: Encodable>(endpoint: String, body: Body?, callback: @escaping (T) -> Void, errorCallback: ((ErrorResponse?) -> Void)? = nil) {
         AF.request("\(BASE_URL)\(endpoint)?api_key=\(API_KEY)", method: .post, parameters: body, encoder: JSONParameterEncoder.default, headers: ["Content-Type":"application/json"]).validate().responseDecodable(of: T.self) { result in
-            if let statusCode = result.response?.statusCode, statusCode >= 400 && statusCode < 500 {
-                print(statusCode)
-                ErrorService.sharedInstance.showToast()
-            }
-            if let error = result.error {
-                print(error.localizedDescription)
-                return
+            if let _ = result.error {
+                if let data = result.data, let errorResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) {
+                    errorCallback?(errorResponse)
+                    return
+                }
             }
             if let value = result.value {
                 callback(value)

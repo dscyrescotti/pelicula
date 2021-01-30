@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftUIX
 
 struct LoginView: View {
-    @State private var credientials = Credientials()
+    @ObservedObject var viewModel = LoginViewModel()
     var body: some View {
         VStack {
             Spacer()
@@ -17,13 +17,13 @@ struct LoginView: View {
                 .font(.system(size: 70))
             Text("pelicula")
                     .bold()
-                    .font(.system(size: 60))
+                    .font(.system(size: 50))
             Spacer()
             VStack(alignment: .leading) {
                 Text("Username")
                     .font(.headline)
                     .fontWeight(.medium)
-                TextField("username", text: $credientials.username)
+                TextField("username", text: $viewModel.username)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .padding(8)
@@ -32,16 +32,16 @@ struct LoginView: View {
                     .cornerRadius(8)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.gray, lineWidth: 0.5)
+                            .stroke(Color.gray, lineWidth: 0.3)
                     )
             }
             .padding(.horizontal)
-                .padding(.bottom, 5)
+            .padding(.bottom, 5)
             VStack(alignment: .leading) {
                 Text("Password")
                     .font(.headline)
                     .fontWeight(.medium)
-                SecureField("password", text: $credientials.password)
+                SecureField("password", text: $viewModel.password)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .padding(8)
@@ -50,37 +50,40 @@ struct LoginView: View {
                     .cornerRadius(8)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.gray, lineWidth: 0.5)
+                            .stroke(Color.gray, lineWidth: 0.3)
                     )
             }
             .padding(.horizontal)
+            if let error = viewModel.error {
+                Label(error.message, systemImage: "exclamationmark.triangle.fill")
+                    .padding(.horizontal)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(.red)
+            }
             Spacer()
             Button(action: {
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                UserService.sharedInstance.login(username: credientials.username, password: credientials.password)
+                viewModel.login()
             }) {
-                Text("Login")
-                    .font(.headline)
-                    .padding(.vertical, 5)
-                    .foregroundColor(.white)
-                    .padding(8)
-                    .frame(maxWidth: .infinity)
-                    .background(credientials.validate() ? Color.green : Color.green.opacity(0.5))
-                    .cornerRadius(8)
-                    .padding(.horizontal)
+                Group {
+                    if viewModel.isLogging {
+                        ProgressView()
+                    } else {
+                        Text("Login")
+                            .font(.headline)
+                    }
+                }
+                .padding(.vertical, 5)
+                .foregroundColor(.white)
+                .padding(8)
+                .frame(maxWidth: .infinity)
+                .background(viewModel.validate() && !viewModel.isLogging ? Color.green : Color.green.opacity(0.5))
+                .cornerRadius(8)
+                .padding(.horizontal)
             }
-            .disabled(!credientials.validate())
+            .disabled(!viewModel.validate() && viewModel.isLogging)
         }
         .padding(.bottom, 10)
-    }
-    
-    private struct Credientials {
-        var username: String = ""
-        var password: String = ""
-        
-        func validate() -> Bool {
-            username.isNotEmpty && password.isNotEmpty
-        }
     }
 }
 

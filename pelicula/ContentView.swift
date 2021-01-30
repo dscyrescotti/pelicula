@@ -15,7 +15,7 @@ struct ContentView: View {
                 HomeView()
                     .toSearchView()
                     .navigationBarItems(leading: Button(action: {
-                        UserService.sharedInstance.logout()
+                        UserService.sharedInstance.unauthenticate()
                     }) {
                         Text("Logout")
                     })

@@ -25,23 +25,18 @@ final class UserService: ObservableObject {
     private func loadSessionId() {
         if let value = try? storage.get("session_id") {
             self.sessionId = value
-            print("[Info]: Found the session id in keychain.")
-        } else {
-            print("[Info]: No session id in keychain.")
         }
     }
     
-    func login(username: String, password: String) {
+    func authenticate(username: String, password: String, errorCallback: ((ErrorResponse?) -> Void)? = nil, successCallback: (() -> Void)? = nil) {
         newToken { token in
             let credientials = UserCrediential(username: username, password: password, requestToken: token.requestToken)
             print(credientials)
-            APIService.post(endpoint: "authentication/token/validate_with_login", body: credientials) { (_token: Token) in
+            APIService.post(endpoint: "authentication/token/validate_with_login", body: credientials, callback: { (_token: Token) in
                 if _token.success {
-                    self.newSession(requestToken: _token.requestToken)
-                } else {
-                    print("[Error]: Failed to validate token.")
+                    self.newSession(requestToken: _token.requestToken, errorCallback: errorCallback)
                 }
-            }
+            }, errorCallback: errorCallback)
         }
     }
     
@@ -49,28 +44,25 @@ final class UserService: ObservableObject {
         APIService.get(endpoint: "authentication/token/new") { (token: Token) in
             if token.success {
                 whenDone(token)
-            } else {
-                print("[Error]: Failed to create a new token.")
             }
         }
     }
     
-    private func newSession(requestToken: String) {
-        APIService.post(endpoint: "authentication/session/new", body: TokenCrediential(requestToken: requestToken)) { (session: Session) in
+    private func newSession(requestToken: String, errorCallback: ((ErrorResponse?) -> Void)?, successCallback: (() -> Void)? = nil) {
+        APIService.post(endpoint: "authentication/session/new", body: TokenCrediential(requestToken: requestToken), callback: { (session: Session) in
             if session.success {
                 do {
                     try self.storage.set(session.sessionId, key: "session_id")
                     self.loadSessionId()
+                    successCallback?()
                 } catch (let error) {
                     print(error.localizedDescription)
                 }
-            } else {
-                print("[Error]: Failed to create a new session.")
             }
-        }
+        }, errorCallback: errorCallback)
     }
     
-    func logout() {
+    func unauthenticate() {
         guard let id = sessionId else {
             return
         }
