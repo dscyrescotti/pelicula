@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E61539DB25C1A0E10014F2BB /* LazyViewSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E61539DA25C1A0E10014F2BB /* LazyViewSwiftUI */; };
-		E62F058025C516840074E87A /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = E62F057F25C516840074E87A /* PopupView */; };
 		E6341B4325C5907F00842D8B /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6341B4225C5907F00842D8B /* ErrorResponse.swift */; };
 		E6341B4B25C590C200842D8B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6341B4A25C590C200842D8B /* LoginViewModel.swift */; };
 		E63E9D6E25BC311300136675 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E63E9D6D25BC311300136675 /* Alamofire */; };
@@ -108,7 +107,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E62F058025C516840074E87A /* PopupView in Frameworks */,
 				E63E9D8F25BC4A3F00136675 /* Kingfisher in Frameworks */,
 				E61539DB25C1A0E10014F2BB /* LazyViewSwiftUI in Frameworks */,
 				E63E9D7E25BC3FE800136675 /* CodableX in Frameworks */,
@@ -287,7 +285,6 @@
 				E63E9D8E25BC4A3F00136675 /* Kingfisher */,
 				E61539DA25C1A0E10014F2BB /* LazyViewSwiftUI */,
 				E691494B25C42E1300CD9643 /* KeychainAccess */,
-				E62F057F25C516840074E87A /* PopupView */,
 			);
 			productName = pelicula;
 			productReference = E6BA31C625BC2F8600CFCDB3 /* pelicula.app */;
@@ -366,7 +363,6 @@
 				E63E9D8D25BC4A3F00136675 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				E61539D925C1A0E10014F2BB /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */,
 				E691494A25C42E1300CD9643 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				E62F057E25C516840074E87A /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = E6BA31C725BC2F8600CFCDB3 /* Products */;
 			projectDirPath = "";
@@ -760,14 +756,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		E62F057E25C516840074E87A /* XCRemoteSwiftPackageReference "PopupView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/exyte/PopupView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.11;
-			};
-		};
 		E63E9D6C25BC311300136675 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -807,11 +795,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E61539D925C1A0E10014F2BB /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */;
 			productName = LazyViewSwiftUI;
-		};
-		E62F057F25C516840074E87A /* PopupView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E62F057E25C516840074E87A /* XCRemoteSwiftPackageReference "PopupView" */;
-			productName = PopupView;
 		};
 		E63E9D6D25BC311300136675 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
