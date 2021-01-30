@@ -22,16 +22,12 @@ final class UserService: ObservableObject {
     
     @Published var sessionId: String? = nil
     
-//    var sessionId: String? {
-//        guard let value = try? storage.get("session_id") else {
-//            return nil
-//        }
-//        return value
-//    }
-    
     private func loadSessionId() {
         if let value = try? storage.get("session_id") {
             self.sessionId = value
+            print("[Info]: Found the session id in keychain.")
+        } else {
+            print("[Info]: No session id in keychain.")
         }
     }
     
@@ -64,6 +60,7 @@ final class UserService: ObservableObject {
             if session.success {
                 do {
                     try self.storage.set(session.sessionId, key: "session_id")
+                    self.loadSessionId()
                 } catch (let error) {
                     print(error.localizedDescription)
                 }
@@ -81,6 +78,7 @@ final class UserService: ObservableObject {
             if success.success {
                 print("Successfully deleted session.")
                 try? self.storage.remove("session_id")
+                self.sessionId = nil
             } else {
                 print("[Error]: Failed to destroy the session.")
             }

@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var userService: UserService = .sharedInstance
     var body: some View {
-        NavigationView {
-            HomeView()
-                .toSearchView()
-                .navigationTitle("pelicula")
+        if let _ = userService.sessionId {
+            NavigationView {
+                HomeView()
+                    .toSearchView()
+                    .navigationBarItems(leading: Button(action: {
+                        UserService.sharedInstance.logout()
+                    }) {
+                        Text("Logout")
+                    })
+                    .navigationTitle("pelicula")
+            }
+        } else {
+            LoginView()
         }
     }
 }

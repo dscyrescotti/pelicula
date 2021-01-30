@@ -32,6 +32,7 @@ final class APIService {
         AF.request("\(BASE_URL)\(endpoint)?api_key=\(API_KEY)", method: .post, parameters: body, encoder: JSONParameterEncoder.default, headers: ["Content-Type":"application/json"]).validate().responseDecodable(of: T.self) { result in
             if let statusCode = result.response?.statusCode, statusCode >= 400 && statusCode < 500 {
                 print(statusCode)
+                ErrorService.sharedInstance.showToast()
             }
             if let error = result.error {
                 print(error.localizedDescription)

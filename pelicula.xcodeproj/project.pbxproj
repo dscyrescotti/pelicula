@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		E61539DB25C1A0E10014F2BB /* LazyViewSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E61539DA25C1A0E10014F2BB /* LazyViewSwiftUI */; };
+		E62F058025C516840074E87A /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = E62F057F25C516840074E87A /* PopupView */; };
+		E62F058525C51B750074E87A /* ErrorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62F058425C51B750074E87A /* ErrorService.swift */; };
 		E63E9D6E25BC311300136675 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E63E9D6D25BC311300136675 /* Alamofire */; };
 		E63E9D7425BC315F00136675 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63E9D7325BC315F00136675 /* APIService.swift */; };
 		E63E9D7E25BC3FE800136675 /* CodableX in Frameworks */ = {isa = PBXBuildFile; productRef = E63E9D7D25BC3FE800136675 /* CodableX */; };
@@ -61,6 +63,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E62F058425C51B750074E87A /* ErrorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorService.swift; sourceTree = "<group>"; };
 		E63E9D7325BC315F00136675 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		E63E9D8225BC409500136675 /* ResultList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultList.swift; sourceTree = "<group>"; };
 		E66446EB25C3B6E500B50D03 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
@@ -103,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E62F058025C516840074E87A /* PopupView in Frameworks */,
 				E63E9D8F25BC4A3F00136675 /* Kingfisher in Frameworks */,
 				E61539DB25C1A0E10014F2BB /* LazyViewSwiftUI in Frameworks */,
 				E63E9D7E25BC3FE800136675 /* CodableX in Frameworks */,
@@ -133,6 +137,7 @@
 			children = (
 				E63E9D7325BC315F00136675 /* APIService.swift */,
 				E691494525C42C4E00CD9643 /* UserService.swift */,
+				E62F058425C51B750074E87A /* ErrorService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -279,6 +284,7 @@
 				E63E9D8E25BC4A3F00136675 /* Kingfisher */,
 				E61539DA25C1A0E10014F2BB /* LazyViewSwiftUI */,
 				E691494B25C42E1300CD9643 /* KeychainAccess */,
+				E62F057F25C516840074E87A /* PopupView */,
 			);
 			productName = pelicula;
 			productReference = E6BA31C625BC2F8600CFCDB3 /* pelicula.app */;
@@ -357,6 +363,7 @@
 				E63E9D8D25BC4A3F00136675 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				E61539D925C1A0E10014F2BB /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */,
 				E691494A25C42E1300CD9643 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				E62F057E25C516840074E87A /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = E6BA31C725BC2F8600CFCDB3 /* Products */;
 			projectDirPath = "";
@@ -424,6 +431,7 @@
 				E691494625C42C4E00CD9643 /* UserService.swift in Sources */,
 				E6AD3F2C25BFDFD900A2982F /* MediaDetailsView.swift in Sources */,
 				E6AD3F3425BFE7E600A2982F /* MediaDetails.swift in Sources */,
+				E62F058525C51B750074E87A /* ErrorService.swift in Sources */,
 				E6D5594F25BD4679004B3EAB /* PosterRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -748,6 +756,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		E62F057E25C516840074E87A /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.11;
+			};
+		};
 		E63E9D6C25BC311300136675 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -787,6 +803,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E61539D925C1A0E10014F2BB /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */;
 			productName = LazyViewSwiftUI;
+		};
+		E62F057F25C516840074E87A /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E62F057E25C516840074E87A /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
 		};
 		E63E9D6D25BC311300136675 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
