@@ -56,6 +56,7 @@ struct LoginView: View {
             .padding(.horizontal)
             Spacer()
             Button(action: {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 UserService.sharedInstance.login(username: credientials.username, password: credientials.password)
             }) {
                 Text("Login")
