@@ -29,10 +29,14 @@ struct PosterGridView: View {
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 5), count: 3), spacing: 10) {
                         ForEach(viewModel.results, id: \.uuid) { result in
                             card(result: result, width: reader.size.width)
-                                .onAppear {
-                                    viewModel.next(result: result)
-                                }
                                 .toDetailsView(result: result)
+                                .onAppear {
+                                    if !viewModel.isEnd {
+                                        DispatchQueue.global(qos: .userInitiated).async {
+                                            viewModel.next(result: result)
+                                        }
+                                    }
+                                }
                         }
                     }
                 }

@@ -20,6 +20,7 @@ struct HomeView: View {
             .toSearchView()
             .navigationTitle("pelicula")
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

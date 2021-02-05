@@ -9,6 +9,7 @@ import SwiftUI
 import LazyViewSwiftUI
 
 extension View {
+    @ViewBuilder
     func toDetailsView(result: Result) -> some View {
         NavigationLink(destination: LazyView(destination(result: result))) {
             self
@@ -17,14 +18,13 @@ extension View {
     
     @ViewBuilder
     private func destination(result: Result) -> some View {
-        if result.type == .movie || result.type == .tv {
+        switch result.type {
+        case .movie, .tv:
             MediaDetailsView(id: result.id, type: result.type)
                 .navigationTitle(result.title)
-        } else if result.type == .person {
+        case .person:
             PersonDetailsView(id: result.id, type: result.type)
                 .navigationTitle(result.title)
-        } else {
-            Text("Oop!")
         }
     }
     
