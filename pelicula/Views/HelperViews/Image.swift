@@ -17,7 +17,7 @@ struct Image: View {
     let radius: CGFloat
     
     var body: some View {
-        KFImage(URL(string: url ))
+        KFImage(URL(string: url))
             .placeholder {
                 SwiftUI.Image("placeholder-poster")
                     .resizable()

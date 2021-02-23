@@ -24,6 +24,7 @@ struct PersonDetails: Codable {
     @Nullable var imdbID: String?
     @Nullable var homepage: String?
     var combinedCredits: CombinedCredit
+    var images: Images
 
     enum CodingKeys: String, CodingKey {
         case birthday
@@ -37,6 +38,14 @@ struct PersonDetails: Codable {
         case imdbID = "imdb_id"
         case homepage
         case combinedCredits = "combined_credits"
+        case images
+    }
+    
+    var age: Int? {
+        if birthday != nil {
+            return deathday.year - birthday.year
+        }
+        return nil
     }
 }
 
@@ -55,5 +64,39 @@ struct CombinedCredit: Codable {
     
     var cast: [Result] {
         _cast.compactMap { ($0 as? Resultable)?.result }
+    }
+}
+
+struct Images: Codable {
+    var profiles: [Profile]
+}
+
+struct Profile: Codable, Identifiable, Hashable {
+    static func == (lhs: Profile, rhs: Profile) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    var id: String {
+        filePath
+    }
+    
+    @Defaultable var aspectRatio: Double
+    var filePath: String
+    var height: Int
+    @Defaultable var voteAverage: Double
+    @Defaultable var voteCount: Int
+    var width: Int
+
+    enum CodingKeys: String, CodingKey {
+        case aspectRatio = "aspect_ratio"
+        case filePath = "file_path"
+        case height
+        case voteAverage = "vote_average"
+        case voteCount = "vote_count"
+        case width
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }

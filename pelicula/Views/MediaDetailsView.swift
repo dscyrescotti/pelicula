@@ -96,8 +96,7 @@ struct MediaDetailsView: View {
                 Text("Overview")
                     .font(.title3)
                     .bold()
-                Text(details.overview)
-                    .fixedSize(horizontal: false, vertical: true)
+                CollapseTextView(text: details.overview, maxLine: 10)
             }
         }
     }

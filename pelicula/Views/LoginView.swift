@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftUIX
 
 struct LoginView: View {
     @ObservedObject var viewModel = LoginViewModel()
