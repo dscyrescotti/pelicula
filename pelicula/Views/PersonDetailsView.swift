@@ -7,9 +7,11 @@
 
 import SwiftUI
 import Kingfisher
+import ImageViewer
 
 struct PersonDetailsView: View {
     @StateObject private var viewModel: PersonDetailsViewModel
+    @State private var url: String? = nil
     init(id: Int, type: Results) {
         self._viewModel = StateObject(wrappedValue: PersonDetailsViewModel(id: id, type: type))
     }
@@ -28,11 +30,14 @@ struct PersonDetailsView: View {
                                 }
                                 biography(details)
                             }.padding(.horizontal)
-                            ImageRow(images: details.images.profiles)
+                            ImageRow(images: details.images.profiles, url: $url)
                             posterRow(results: details.combinedCredits.cast, title: "Movies and TVs", endpoint: "\(viewModel.type)/\(viewModel.id)/combined_credits")
                         }
                     }
                 }
+                .overlay(
+                    ImageSheet(url: $url)
+                )
             } else {
                 ProgressView()
             }
@@ -109,23 +114,63 @@ struct PersonDetailsView: View {
 
 struct CastDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        PersonDetailsView(id: 550843, type: .person)
+        NavigationView {
+            PersonDetailsView(id: 550843, type: .person)
+                .navigationTitle("Person")
+        }
     }
 }
 
 struct ImageRow: View {
     let images: [Profile]
+    @Binding var url: String?
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 0) {
-                ForEach(images) { profile in
-                    KFImage(URL(string: "https://image.tmdb.org/t/p/w500/" + profile.filePath))
-                        .cacheOriginalImage()
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 220)
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Images")
+                .font(.title3)
+                .bold()
+                .padding(.horizontal)
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHStack(spacing: 0) {
+                    ForEach(images) { profile in
+                        let url = "https://image.tmdb.org/t/p/w500/" + profile.filePath
+                        KFImage(URL(string: url))
+                            .cacheOriginalImage()
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 220)
+                            .onTapGesture {
+                                self.url = url
+                            }
+                    }
                 }
             }
+        }
+    }
+}
+
+struct ImageSheet: View {
+    @Binding var url: String?
+    var body: some View {
+        if let strURL = url {
+            ZStack {
+                Color.black.overlay(KFImage(URL(string: strURL))
+                                        .cacheOriginalImage()
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit))
+                    .edgesIgnoringSafeArea(.all)
+                Button(action: {
+                    self.url = nil
+                }) {
+                    SwiftUI.Image(systemName: "xmark.circle.fill")
+                        .font(.system(size: 37))
+                        .foregroundColor(.white)
+                        .opacity(0.55)
+                }
+                .padding(5)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            }
+            .navigationBarHidden(self.url != nil)
         }
     }
 }
