@@ -28,8 +28,6 @@
 		E691495125C4300700CD9643 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E691495025C4300700CD9643 /* User.swift */; };
 		E6A0C6D825C05F5E005D591A /* Optional+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A0C6D725C05F5E005D591A /* Optional+.swift */; };
 		E6A0C6DD25C11AC1005D591A /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A0C6DC25C11AC1005D591A /* String+.swift */; };
-		E6A69D1225E6264C001C7BFA /* ImageViewerRemote in Frameworks */ = {isa = PBXBuildFile; productRef = E6A69D1125E6264C001C7BFA /* ImageViewerRemote */; };
-		E6A69D1425E6264C001C7BFA /* ImageViewer in Frameworks */ = {isa = PBXBuildFile; productRef = E6A69D1325E6264C001C7BFA /* ImageViewer */; };
 		E6AD3F2C25BFDFD900A2982F /* MediaDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AD3F2B25BFDFD900A2982F /* MediaDetailsView.swift */; };
 		E6AD3F3425BFE7E600A2982F /* MediaDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AD3F3325BFE7E600A2982F /* MediaDetails.swift */; };
 		E6AD3F3925BFF14300A2982F /* MediaDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AD3F3825BFF14300A2982F /* MediaDetailsViewModel.swift */; };
@@ -113,8 +111,6 @@
 			files = (
 				E63E9D8F25BC4A3F00136675 /* Kingfisher in Frameworks */,
 				E61539DB25C1A0E10014F2BB /* LazyViewSwiftUI in Frameworks */,
-				E6A69D1425E6264C001C7BFA /* ImageViewer in Frameworks */,
-				E6A69D1225E6264C001C7BFA /* ImageViewerRemote in Frameworks */,
 				E63E9D7E25BC3FE800136675 /* CodableX in Frameworks */,
 				E63E9D6E25BC311300136675 /* Alamofire in Frameworks */,
 				E691494C25C42E1300CD9643 /* KeychainAccess in Frameworks */,
@@ -292,8 +288,6 @@
 				E63E9D8E25BC4A3F00136675 /* Kingfisher */,
 				E61539DA25C1A0E10014F2BB /* LazyViewSwiftUI */,
 				E691494B25C42E1300CD9643 /* KeychainAccess */,
-				E6A69D1125E6264C001C7BFA /* ImageViewerRemote */,
-				E6A69D1325E6264C001C7BFA /* ImageViewer */,
 			);
 			productName = pelicula;
 			productReference = E6BA31C625BC2F8600CFCDB3 /* pelicula.app */;
@@ -372,7 +366,6 @@
 				E63E9D8D25BC4A3F00136675 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				E61539D925C1A0E10014F2BB /* XCRemoteSwiftPackageReference "Lazy-View-SwiftUI" */,
 				E691494A25C42E1300CD9643 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				E6A69D1025E6264C001C7BFA /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */,
 			);
 			productRefGroup = E6BA31C725BC2F8600CFCDB3 /* Products */;
 			projectDirPath = "";
@@ -799,14 +792,6 @@
 				minimumVersion = 4.2.1;
 			};
 		};
-		E6A69D1025E6264C001C7BFA /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Jake-Short/swiftui-image-viewer.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -834,16 +819,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E691494A25C42E1300CD9643 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
-		};
-		E6A69D1125E6264C001C7BFA /* ImageViewerRemote */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E6A69D1025E6264C001C7BFA /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */;
-			productName = ImageViewerRemote;
-		};
-		E6A69D1325E6264C001C7BFA /* ImageViewer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E6A69D1025E6264C001C7BFA /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */;
-			productName = ImageViewer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

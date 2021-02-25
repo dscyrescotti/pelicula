@@ -25,6 +25,7 @@ struct DetailsWrapper {
     let recommendations: ResultList
     let similar: ResultList
     let credits: MediaCredit
+    let seasons: [Season]?
 }
 
 struct MovieDetails: MediaDetails {
@@ -81,7 +82,7 @@ struct MovieDetails: MediaDetails {
     }
     
     var details: DetailsWrapper {
-        .init(id: id, title: title, genres: genres, backdrop: backdropPath, poster: posterPath, overview: overview, date: releaseDate.formatDate, tagline: tagline, status: status, recommendations: recommendations, similar: similar, credits: credits)
+        .init(id: id, title: title, genres: genres, backdrop: backdropPath, poster: posterPath, overview: overview, date: releaseDate.formatDate, tagline: tagline, status: status, recommendations: recommendations, similar: similar, credits: credits, seasons: nil)
     }
 }
 
@@ -154,7 +155,7 @@ struct TVDetails: MediaDetails {
     }
     
     var details: DetailsWrapper {
-        .init(id: id, title: name, genres: genres, backdrop: backdropPath, poster: posterPath, overview: overview, date: firstAirDate.formatDate, tagline: tagline, status: status, recommendations: recommendations, similar: similar, credits: credits)
+        .init(id: id, title: name, genres: genres, backdrop: backdropPath, poster: posterPath, overview: overview, date: firstAirDate.formatDate, tagline: tagline, status: status, recommendations: recommendations, similar: similar, credits: credits, seasons: seasons)
     }
     
 }

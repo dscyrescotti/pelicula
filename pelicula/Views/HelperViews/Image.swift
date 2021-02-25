@@ -15,29 +15,33 @@ struct Image: View {
     let height: CGFloat
     let shadow: CGFloat
     let radius: CGFloat
+    let contentMode: SwiftUI.ContentMode
+    let placeholder: String
     
     var body: some View {
         KFImage(URL(string: url))
             .placeholder {
-                SwiftUI.Image("placeholder-poster")
+                SwiftUI.Image(placeholder)
                     .resizable()
                     .scaledToFill()
             }
             .cacheOriginalImage()
             .resizable()
-            .aspectRatio(contentMode: .fill)
+            .aspectRatio(contentMode: contentMode)
             .frame(width: width, height: height, alignment: .center)
             .clipped()
             .cornerRadius(radius)
             .shadow(radius: shadow)
     }
     
-    init(url: String, width: CGFloat = 90, height: CGFloat = 160, shadow: CGFloat = 2, radius: CGFloat = 10) {
+    init(url: String, width: CGFloat = 90, height: CGFloat = 160, shadow: CGFloat = 2, radius: CGFloat = 10, contentMode: SwiftUI.ContentMode = .fill, placeholder: String = "placeholder-poster") {
         self.url = url
         self.width = width
         self.height = height
         self.shadow = shadow
         self.radius = radius
+        self.contentMode = contentMode
+        self.placeholder = placeholder
     }
 }
 

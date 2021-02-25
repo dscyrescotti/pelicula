@@ -19,11 +19,11 @@ struct HomeView: View {
             }
             .toSearchView()
             .navigationTitle("pelicula")
-            .navigationBarItems(leading: Button(action: {
-                UserService.sharedInstance.unauthenticate()
-            }) {
-                Text("Logout")
-            })
+//            .navigationBarItems(leading: Button(action: {
+//                UserService.sharedInstance.unauthenticate()
+//            }) {
+//                Text("Logout")
+//            })
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

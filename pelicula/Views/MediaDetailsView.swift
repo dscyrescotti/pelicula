@@ -27,6 +27,9 @@ struct MediaDetailsView: View {
                             }
                             .padding(.horizontal)
                             posterRow(results: details.credits.results, title: "Top Bill Casts", endpoint: "\(viewModel.type)/\(details.id)/credits", rowType: .cast)
+                            if let seasons = details.seasons, seasons.count > 0 {
+                                seasonRow(seasons: seasons.reversed())
+                            }
                             posterRow(results: details.similar.results, title: "Similar", endpoint: "\(viewModel.type)/\(details.id)/similar")
                             posterRow(results: details.recommendations.results, title: "Recommendations", endpoint: "\(viewModel.type)/\(details.id)/recommendations")
                         }
@@ -37,13 +40,89 @@ struct MediaDetailsView: View {
             }
         }.navigationBarTitleDisplayMode(.inline)
     }
+}
+
+struct MediaDetailsView_Previews: PreviewProvider {
+    static var previews: some View {
+        MediaDetailsView(id: 66732, type: .tv)
+    }
+}
+
+// MARK: - Only tv
+extension MediaDetailsView {
+    @ViewBuilder
+    private func seasonCard(season: Season, width: CGFloat? = nil, height: CGFloat) -> some View {
+        GeometryReader { proxy in
+            KFImage(URL(string: "https://image.tmdb.org/t/p/w500/" + (season.posterPath ?? "")))
+                .placeholder {
+                    SwiftUI.Image("placeholder-backdrop")
+                        .resizable()
+                        .scaledToFill()
+                }
+                .cacheOriginalImage()
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: proxy.size.width, height: proxy.size.height, alignment: .top)
+                .overlay(
+                    ZStack(alignment: .bottomLeading) {
+                        LinearGradient(gradient: Gradient(colors: [.clear, Color.black.opacity(0.5), .black]), startPoint: .top, endPoint: .bottom)
+                        VStack(alignment: .leading) {
+                            Text("\(season.name)")
+                                .font(.title)
+                                .bold()
+                            HStack {
+                                Text("\(season.episodeCount) Episode\(season.episodeCount > 1 ? "s" : "")")
+                                Text("|")
+                                Text(String(season.airDate.year))
+                            }
+                            .font(.headline)
+                        }
+                        .foregroundColor(.white)
+                        .padding()
+                    }
+                )
+                .clipped()
+                .cornerRadius(10)
+                .shadow(radius: 2)
+        }
+        .frame(width: width, height: height)
+    }
     
     @ViewBuilder
-    func posterRow(results: [Result], title: String, endpoint: String, rowType: RowType = .media) -> some View {
+    private func seasonRow(seasons: [Season]) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Group {
+                Text("Seasons")
+                    .font(.title3)
+                    .bold()
+                if let last = seasons.first {
+                    seasonCard(season: last, height: 220)
+                }
+            }
+            .padding(.horizontal)
+            if seasons.count > 1 {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(spacing: 13) {
+                        ForEach(1..<seasons.count) { index in
+                            seasonCard(season: seasons[index], width: 270, height: 180)
+                        }
+                    }
+                    .padding(.horizontal)
+                }
+                .padding(.top, 3)
+            }
+        }
+    }
+}
+
+// MARK: - Both movie and tv
+extension MediaDetailsView {
+    @ViewBuilder
+    private func posterRow(results: [Result], title: String, endpoint: String, rowType: RowType = .media) -> some View {
         PosterRow(title: title, results: results, endpoint: endpoint, params: [:], type: rowType)
     }
     
-    func backdrop(_ fname: String, width: CGFloat) -> some View {
+    private func backdrop(_ fname: String, width: CGFloat) -> some View {
         KFImage(URL(string: "https://image.tmdb.org/t/p/w500/" + fname))
             .placeholder {
                 SwiftUI.Image("placeholder-backdrop")
@@ -58,7 +137,7 @@ struct MediaDetailsView: View {
     }
     
     @ViewBuilder
-    func poster(_ details: DetailsWrapper) -> some View {
+    private func poster(_ details: DetailsWrapper) -> some View {
         HStack(alignment: .top, spacing: 15) {
             Image(url: "https://image.tmdb.org/t/p/w500/" + (details.poster ?? ""), width: 120, height: 190)
             VStack(alignment: .leading, spacing: 5) {
@@ -80,7 +159,7 @@ struct MediaDetailsView: View {
     }
     
     @ViewBuilder
-    func tagline(_ details: DetailsWrapper) -> some View {
+    private func tagline(_ details: DetailsWrapper) -> some View {
         if details.tagline.isNotEmpty {
             Text(details.tagline)
                 .font(.headline)
@@ -90,7 +169,7 @@ struct MediaDetailsView: View {
     }
     
     @ViewBuilder
-    func overview(_ details: DetailsWrapper) -> some View {
+    private func overview(_ details: DetailsWrapper) -> some View {
         if details.overview.isNotEmpty {
             VStack(alignment: .leading, spacing: 10) {
                 Text("Overview")
@@ -99,11 +178,5 @@ struct MediaDetailsView: View {
                 CollapseTextView(text: details.overview, maxLine: 10)
             }
         }
-    }
-}
-
-struct MediaDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        MediaDetailsView(id: 475557, type: .movie)
     }
 }
