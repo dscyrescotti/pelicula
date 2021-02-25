@@ -11,22 +11,41 @@ struct SearchView: View {
     @State private var query: String = ""
     @State private var selection = 1
     var body: some View {
-        Group {
-//            Picker(selection: $selection, label: Text(""), content: {
-//                /*@START_MENU_TOKEN@*/Text("1").tag(1)/*@END_MENU_TOKEN@*/
-//                /*@START_MENU_TOKEN@*/Text("2").tag(2)/*@END_MENU_TOKEN@*/
-//            })
+        VStack(spacing: 0) {
+            SearchBar(query: $query)
+                .padding(.vertical, 5)
             if query.isEmpty {
                 Text("Type something to explore...")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             } else {
                 VStack {
-                    PosterGridView(endpoint: "search/movie", params: ["query": query], type: .media, include: false)
+                    Picker(selection: $selection, label: Text("")) {
+                        ForEach(searchs) { search in
+                            Text(search.name).tag(search.id)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding(.horizontal, 10)
+                    TabView(selection: $selection) {
+                        ForEach(searchs) { search in
+                            PosterGridView(endpoint: search.endpoint, params: ["query": query], type: search.type, include: false).tag(search.id)
+                        }
+                    }
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                    .edgesIgnoringSafeArea(.bottom)
                 }
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Explore")
     }
-    private let tags = ["Movie"]
+    private let searchs: [Search] = [.init(id: 1, name: "Movie", endpoint: "search/movie", type: .media), .init(id: 2, name: "TV", endpoint: "search/tv", type: .media)]
+    private struct Search: Identifiable {
+        let id: Int
+        let name: String
+        let endpoint: String
+        let type: RowType
+    }
 }
 
 struct SearchView_Previews: PreviewProvider {

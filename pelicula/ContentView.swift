@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var userService: UserService = .sharedInstance
     var body: some View {
-        NavigationView {
+        if let _ = userService.sessionId {
             HomeView()
-                .toSearchView()
-                .navigationTitle("pelicula")
+        } else {
+            LoginView()
         }
     }
 }

@@ -10,12 +10,22 @@ import SwiftUI
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            ForEach(viewModel.rows) { row in
-                PosterRow(title: row.title, results: row.list.results, endpoint: row.endpoint, params: row.parameters)
-                    .padding(.vertical, 5)
+        NavigationView {
+            ScrollView(.vertical, showsIndicators: false) {
+                ForEach(viewModel.rows) { row in
+                    PosterRow(title: row.title, results: row.list.results, endpoint: row.endpoint, params: row.parameters)
+                        .padding(.vertical, 5)
+                }
             }
+            .toSearchView()
+            .navigationTitle("pelicula")
+//            .navigationBarItems(leading: Button(action: {
+//                UserService.sharedInstance.unauthenticate()
+//            }) {
+//                Text("Logout")
+//            })
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

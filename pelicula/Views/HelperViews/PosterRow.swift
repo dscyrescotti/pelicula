@@ -28,7 +28,7 @@ struct PosterRow: View {
                 }.padding(.horizontal)
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(alignment: .top, spacing: 13) {
-                        ForEach(results) { result in
+                        ForEach(results, id: \.uuid) { result in
                             card(result: result).toDetailsView(result: result)
                         }
                     }

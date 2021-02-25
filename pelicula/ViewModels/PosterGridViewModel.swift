@@ -30,6 +30,7 @@ class PosterGridViewModel: ObservableObject {
             if type == .media {
                 params["page"] = page
                 APIService.get(endpoint: endpoint, parameters: params) { [weak self] (list: ResultList) in
+                    print(list.totalPages)
                     self?.isEnd = list.page >= list.totalPages
                     self?.results.append(contentsOf: list.results)
                     self?.page += 1
