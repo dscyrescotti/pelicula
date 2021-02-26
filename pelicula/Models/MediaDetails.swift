@@ -26,6 +26,7 @@ struct DetailsWrapper {
     let similar: ResultList
     let credits: MediaCredit
     let seasons: [Season]?
+    let videos: [Video]
 }
 
 struct MovieDetails: MediaDetails {
@@ -57,6 +58,7 @@ struct MovieDetails: MediaDetails {
     var recommendations: ResultList
     var similar: ResultList
     var credits: MediaCredit
+    var videos: Videos
 
     enum CodingKeys: String, CodingKey {
         case adult
@@ -79,10 +81,11 @@ struct MovieDetails: MediaDetails {
         case recommendations
         case similar
         case credits
+        case videos
     }
     
     var details: DetailsWrapper {
-        .init(id: id, title: title, genres: genres, backdrop: backdropPath, poster: posterPath, overview: overview, date: releaseDate.formatDate, tagline: tagline, status: status, recommendations: recommendations, similar: similar, credits: credits, seasons: nil)
+        .init(id: id, title: title, genres: genres, backdrop: backdropPath, poster: posterPath, overview: overview, date: releaseDate.formatDate, tagline: tagline, status: status, recommendations: recommendations, similar: similar, credits: credits, seasons: nil, videos: videos.results.filter { $0.site == "YouTube" })
     }
 }
 
@@ -121,6 +124,7 @@ struct TVDetails: MediaDetails {
     var recommendations: ResultList
     var similar: ResultList
     var credits: MediaCredit
+    var videos: Videos
 
     enum CodingKeys: String, CodingKey {
         case backdropPath = "backdrop_path"
@@ -152,10 +156,11 @@ struct TVDetails: MediaDetails {
         case recommendations
         case similar
         case credits
+        case videos
     }
     
     var details: DetailsWrapper {
-        .init(id: id, title: name, genres: genres, backdrop: backdropPath, poster: posterPath, overview: overview, date: firstAirDate.formatDate, tagline: tagline, status: status, recommendations: recommendations, similar: similar, credits: credits, seasons: seasons)
+        .init(id: id, title: name, genres: genres, backdrop: backdropPath, poster: posterPath, overview: overview, date: firstAirDate.formatDate, tagline: tagline, status: status, recommendations: recommendations, similar: similar, credits: credits, seasons: seasons, videos: videos.results.filter { $0.site == "YouTube" })
     }
     
 }
@@ -306,6 +311,16 @@ struct Cast: Resultable {
     var result: Result {
         .init(id: id, title: name, subTitle: character, image: profilePath, type: .person)
     }
+}
+
+struct Videos: Codable {
+    var results: [Video]
+}
+
+struct Video: Codable {
+    var id: String
+    var key: String
+    var site: String
 }
 
 //struct Crew: Codable {

@@ -30,9 +30,9 @@ class MediaDetailsViewModel: ObservableObject {
     func loadDetails() {
         var parameters: [String: Any]
         if type == .movie {
-            parameters = ["append_to_response": "similar,recommendations,credits"]
+            parameters = ["append_to_response": "similar,recommendations,credits,videos"]
         } else if type == .tv {
-            parameters = ["append_to_response": "similar,recommendations,credits"]
+            parameters = ["append_to_response": "similar,recommendations,credits,videos"]
         } else {
             parameters = [:]
         }
