@@ -27,6 +27,7 @@ struct MediaDetailsView: View {
                             }
                             .padding(.horizontal)
                             posterRow(results: details.credits.results, title: "Top Bill Casts", endpoint: "\(viewModel.type)/\(details.id)/credits", rowType: .cast)
+                            trailerRow(videos: details.videos)
                             if let seasons = details.seasons, seasons.count > 0 {
                                 seasonRow(seasons: seasons.reversed())
                             }
