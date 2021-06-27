@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Kingfisher
-import ImageViewer
 
 struct PersonDetailsView: View {
     @StateObject private var viewModel: PersonDetailsViewModel

@@ -27,7 +27,6 @@ struct MediaDetailsView: View {
                             }
                             .padding(.horizontal)
                             posterRow(results: details.credits.results, title: "Top Bill Casts", endpoint: "\(viewModel.type)/\(details.id)/credits", rowType: .cast)
-//                            trailerRow(videos: details.videos)
                             if let seasons = details.seasons, seasons.count > 0 {
                                 seasonRow(seasons: seasons.reversed())
                             }
@@ -110,9 +109,11 @@ extension MediaDetailsView {
                     }
                     .padding(.horizontal)
                 }
+                .frame(height: 180)
                 .padding(.top, 3)
             }
         }
+        
     }
 }
 
@@ -121,6 +122,7 @@ extension MediaDetailsView {
     @ViewBuilder
     private func posterRow(results: [Result], title: String, endpoint: String, rowType: RowType = .media) -> some View {
         PosterRow(title: title, results: results, endpoint: endpoint, params: [:], type: rowType)
+            .fixedSize(horizontal: false, vertical: true)
     }
     
     private func backdrop(_ fname: String, width: CGFloat) -> some View {
