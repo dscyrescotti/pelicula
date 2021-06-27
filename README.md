@@ -1,4 +1,4 @@
-# pixl
+# pelicula
 
 **pelicula** (*movie in Spanish*) is an iOS client app for **The Movie Database (*TMDb*)** built using SwiftUI.
 
