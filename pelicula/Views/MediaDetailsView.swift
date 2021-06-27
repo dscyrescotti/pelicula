@@ -18,7 +18,7 @@ struct MediaDetailsView: View {
             if let details = viewModel.media?.details {
                 GeometryReader { reader in
                     ScrollView(.vertical, showsIndicators: false) {
-                        LazyVStack(alignment: .leading, spacing: 15) {
+                        VStack(alignment: .leading, spacing: 15) {
                             backdrop(details.backdrop ?? "", width: reader.size.width)
                             Group {
                                 poster(details)
@@ -27,6 +27,7 @@ struct MediaDetailsView: View {
                             }
                             .padding(.horizontal)
                             posterRow(results: details.credits.results, title: "Top Bill Casts", endpoint: "\(viewModel.type)/\(details.id)/credits", rowType: .cast)
+//                            trailerRow(videos: details.videos)
                             if let seasons = details.seasons, seasons.count > 0 {
                                 seasonRow(seasons: seasons.reversed())
                             }
@@ -176,6 +177,26 @@ extension MediaDetailsView {
                     .font(.title3)
                     .bold()
                 CollapseTextView(text: details.overview, maxLine: 10)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func trailerRow(videos: [Video]) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Trailers")
+                .font(.title3)
+                .bold()
+                .padding(.horizontal)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 13) {
+                    ForEach(videos, id: \.id) { video in
+                        WebView(url: "https://www.youtube.com/embed/\(video.key)")
+                            .frame(width: 320, height: 200)
+                            .cornerRadius(10)
+                    }
+                }
+                .padding(.horizontal)
             }
         }
     }
