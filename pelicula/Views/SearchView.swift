@@ -33,6 +33,7 @@ struct SearchView: View {
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                     .edgesIgnoringSafeArea(.bottom)
+                    .id(query)
                 }
             }
         }

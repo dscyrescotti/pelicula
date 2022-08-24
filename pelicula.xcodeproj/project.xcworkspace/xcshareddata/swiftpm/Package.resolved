@@ -1,52 +1,50 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Alamofire",
-        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
-        "state": {
-          "branch": null,
-          "revision": "eaf6e622dd41b07b251d8f01752eab31bc811493",
-          "version": "5.4.1"
-        }
-      },
-      {
-        "package": "CodableX",
-        "repositoryURL": "https://github.com/dscyrescotti/CodableX.git",
-        "state": {
-          "branch": null,
-          "revision": "f9f1d561414287aba6f59df08ea02d73fd20b197",
-          "version": "0.1.0"
-        }
-      },
-      {
-        "package": "KeychainAccess",
-        "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess.git",
-        "state": {
-          "branch": null,
-          "revision": "654d52d30f3dd4592e944c3e0bccb53178c992f6",
-          "version": "4.2.1"
-        }
-      },
-      {
-        "package": "Kingfisher",
-        "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
-        "state": {
-          "branch": null,
-          "revision": "0be276f6a7fd54af4c3eb03f2d12e12d8c8a1a1d",
-          "version": "6.0.1"
-        }
-      },
-      {
-        "package": "LazyViewSwiftUI",
-        "repositoryURL": "https://github.com/joehinkle11/Lazy-View-SwiftUI.git",
-        "state": {
-          "branch": null,
-          "revision": "1a26f8f0fe90061cdca98f4ce52df9f191920153",
-          "version": "1.0.0"
-        }
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "eaf6e622dd41b07b251d8f01752eab31bc811493",
+        "version" : "5.4.1"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "codablex",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dscyrescotti/CodableX.git",
+      "state" : {
+        "revision" : "f9f1d561414287aba6f59df08ea02d73fd20b197",
+        "version" : "0.1.0"
+      }
+    },
+    {
+      "identity" : "keychainaccess",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kishikawakatsumi/KeychainAccess.git",
+      "state" : {
+        "revision" : "654d52d30f3dd4592e944c3e0bccb53178c992f6",
+        "version" : "4.2.1"
+      }
+    },
+    {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher.git",
+      "state" : {
+        "revision" : "d0d669fba45e16b0669ce4986725b71da41c4049",
+        "version" : "6.0.1"
+      }
+    },
+    {
+      "identity" : "lazy-view-swiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/joehinkle11/Lazy-View-SwiftUI.git",
+      "state" : {
+        "revision" : "1a26f8f0fe90061cdca98f4ce52df9f191920153",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 2
 }
